@@ -7,13 +7,16 @@
  */
 
 // The names and URLs to all of the feeds we'd like available.
+
 var allFeeds = [
     {
         name: 'Udacity Blog',
         url: 'http://blog.udacity.com/feed'
     }, {
         name: 'CSS Tricks',
-        url: 'http://feeds.feedburner.com/CssTricks'
+        //url: 'http://feeds.feedburner.com/CssTricks'
+        url: 'http://blog.udacity.com/feed'
+
     }, {
         name: 'HTML5 Rocks',
         url: 'http://feeds.feedburner.com/html5rocks'
@@ -27,9 +30,11 @@ var allFeeds = [
  * Reader API is loaded asynchonously and will then call this
  * function when the API is loaded.
  */
+
 function init() {
     // Load the first feed we've defined (index of 0).
     loadFeed(0);
+    before=document.querySelectorAll('.feed .entry');
 }
 
 /* This function performs everything necessary to load a
@@ -40,7 +45,9 @@ function init() {
  * This function all supports a callback as the second parameter
  * which will be called after everything has run successfully.
  */
+
  function loadFeed(id, cb) {
+
      var feedUrl = allFeeds[id].url,
          feedName = allFeeds[id].name;
 
@@ -118,8 +125,8 @@ $(function() {
      */
     feedList.on('click', 'a', function() {
         var item = $(this);
-
         $('body').addClass('menu-hidden');
+        before=document.querySelectorAll('.feed .entry');
         loadFeed(item.data('id'));
         return false;
     });
