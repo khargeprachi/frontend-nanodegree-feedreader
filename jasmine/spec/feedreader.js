@@ -128,6 +128,7 @@ $(function() {
    describe('New Feed Selection',function() {
       beforeEach(function (done) {
 
+        before=document.querySelectorAll('.feed .entry');
 
         //var Before=$('.feed');
          feed = $('.feed-list');
