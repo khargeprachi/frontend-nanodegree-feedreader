@@ -31,13 +31,37 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+         it('URLs defined',function() {
+             allFeeds.forEach(function (obj,allFeeds){
+               expect(obj.url).toBeDefined();
+               expect(obj.url).not.toBe('');
+             });
+         });
 
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+         it('Names defined',function() {
+             allFeeds.forEach(function (obj,allFeeds){
+               expect(obj.name).toBeDefined();
+               expect(obj.name).not.toBe('');
+             });
+         });
+
     });
+          /*
+          $('menuIcon').click(function () {
+            console.log(menu.className);
+            if(cName==="menu-hidden") {
+                expect(menu.className).not.toBe('menu-hidden');
+            }
+            else if(cName==="") {
+                expect(menu.className).toBe('menu-hidden');
+
+            }
+          */
 
 
     /* TODO: Write a new test suite named "The menu" */
@@ -54,8 +78,45 @@ $(function() {
           * clicked and does it hide when clicked again.
           */
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    describe('The menu', function() {
+        beforeEach(function () {
+            menu=document.querySelector('body');
+            menuIcon=document.querySelector('.menu-icon-link');
+        });
 
+        it('Menu element default',function () {
+            expect(menu.className).toBe('menu-hidden');
+        });
+
+        it('Menu element',function () {
+            $('.menu-icon-link').trigger('click')
+            expect(menu.className).not.toBe('menu-hidden');
+            $('.menu-icon-link').trigger('click')
+            expect(menu.className).toBe('menu-hidden');
+        });
+
+    });
+
+    /* TODO: Write a new test suite named "Initial Entries" */
+    describe('Initial Entries', function() {
+        beforeEach(function (done) {
+           feed = $('.feed-list');
+            id=0;
+             feed.on('click', 'a', function() {
+                 var item = $(this);
+                 id=item.data('id');
+             });
+
+             loadFeed(id,function () {
+               done();
+             });
+        });
+
+        it('Load Feed',function () {
+          feedList=document.querySelectorAll('.feed .entry');
+          expect(feedList.length).not.toBe(0);
+        });
+    });
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
@@ -64,9 +125,50 @@ $(function() {
          */
 
     /* TODO: Write a new test suite named "New Feed Selection" */
+   describe('New Feed Selection',function() {
+      beforeEach(function (done) {
 
+
+        //var Before=$('.feed');
+         feed = $('.feed-list');
+         var id=0;
+         feed.on('click', 'a', function() {
+             var item = $(this);
+             id=item.data('id');
+         });
+
+         loadFeed(id,function () {
+           done();
+         });
+       });
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-}());
+       it('Check new entries', function () {
+         //var After=$('.feed');
+         var after=document.querySelectorAll('.feed .entry');
+
+
+         var arrBefore=[];
+
+         before.forEach(function(node) {
+           arrBefore.push(node.textContent);
+         });
+         flag=false;
+         after.forEach(function(node) {
+           //arrAfter.push(node.textContent);
+
+            arrBefore.forEach(function (before,i) {
+              if(node.textContent!=before[i]){
+                flag=true;
+              }
+            });
+
+         });
+           expect(flag).toBe(true);
+
+         });
+
+    });
+});
