@@ -95,7 +95,6 @@ $(function() {
               var item = $(this);
               id=item.data('id');
           });
-          console.log(id);
           loadFeed(id, done);
           });
         /*
@@ -114,36 +113,9 @@ $(function() {
       This is a before Each function run before every test.
       Loadfeed is an asynchronous function.
      */
-     /*
-      var before;
-      beforeEach(function (done) {
-         var id=0;
-         $('.feed-list').on('click', 'a', function() {
-             var item = $(this);
-             id=item.data('id');
-         });
-         before=document.querySelectorAll('.feed .entry');
-         loadFeed(id,function () {
-           done();
-         });
-      });
-      */
+     
       var firstFeed,secondFeed;
-      /*beforeEach((done) => {
-
-        loadFeed(0, function() {
-        // set the value of firstFeed here.
-           firstFeed=$('.feed').html();
-          loadFeed(1, function() {
-              // set the value of secondFeed here.
-               secondFeed=$('.feed').html();
-             done(); // call after second feed is loaded
-          });
-        });
-      });
-      */
-
-      beforeEach((done) => {
+       beforeEach((done) => {
 
         var id=0;
         $('.feed-list').on('click', 'a', function() {
