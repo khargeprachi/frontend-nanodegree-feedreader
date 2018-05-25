@@ -9,7 +9,7 @@
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
-    "use strict"
+    "use strict";
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
@@ -46,7 +46,7 @@ $(function() {
          has a well defined non empty name.
          */
          it('Names defined',function() {
-             allFeeds.forEach(function (obj,allFeeds){
+             allFeeds.forEach(function (obj){
                expect(obj.name).toBeDefined();
                expect(obj.name).not.toBe('');
              });
@@ -60,6 +60,7 @@ $(function() {
         This test makes sure that all the menu elements
         are hidden by default.
         */
+
         it('Menu element default',function () {
             expect($('body').hasClass('menu-hidden')).toBe(true);
 
@@ -71,10 +72,12 @@ $(function() {
         on the second click, it should be hidden.
         */
         it('Menu element',function () {
-            $('.menu-icon-link').trigger('click')
-            expect($('body').hasClass('menu-hidden')).toBe(false);
-            $('.menu-icon-link').trigger('click')
-            expect($('body').hasClass('menu-hidden')).toBe(true);
+          var body=$('body');
+          var menuIcon=$('.menu-icon-link');
+            menuIcon.trigger('click')
+            expect(body.hasClass('menu-hidden')).toBe(false);
+            menuIcon.trigger('click')
+            expect(body.hasClass('menu-hidden')).toBe(true);
         });
 
     });
@@ -86,16 +89,14 @@ $(function() {
         LoadFeed is an asynchronous function.
         Therefore done() is used to signal its callback.
       */
-        beforeEach(function (done) {
-            var id=0;
-             $('.feed-list').on('click', 'a', function() {
-                 var item = $(this);
-                 id=item.data('id');
-             });
-             loadFeed(id,function () {
-               done();
-             });
-        });
+        beforeEach(function(done) {
+          var id=0;
+          $('.feed-list').on('click', 'a', function() {
+              var item = $(this);
+              id=item.data('id');
+          });
+          loadFeed(0, done);
+          });
         /*
         This test is used to make sure that the
         length of the loaded feed (.entry) should atleast be 1.
@@ -112,6 +113,7 @@ $(function() {
       This is a before Each function run before every test.
       Loadfeed is an asynchronous function.
      */
+     /*
       var before;
       beforeEach(function (done) {
          var id=0;
@@ -124,6 +126,20 @@ $(function() {
            done();
          });
       });
+      */
+      var firstFeed,secondFeed;
+      beforeEach((done) => {
+        
+        loadFeed(0, function() {
+        // set the value of firstFeed here.
+           firstFeed=$('.feed').html();
+          loadFeed(1, function() {
+              // set the value of secondFeed here.
+               secondFeed=$('.feed').html();
+             done(); // call after second feed is loaded
+          });
+        });
+      });
         /*
           This test ensures when a new feed is loaded
           by the loadFeed function that the content actually changes.
@@ -131,20 +147,7 @@ $(function() {
           and are accordingly compared.
        */
        it('Check new entries', function () {
-         var after=document.querySelectorAll('.feed .entry');
-         var arrBefore=[];
-         before.forEach(function(node) {
-           arrBefore.push(node.textContent);
-         });
-         var flag=false;
-         after.forEach(function(node) {
-            arrBefore.forEach(function (before,i) {
-                if(node.textContent!=before[i]){
-                    flag=true;
-                }
-            });
-         });
-         expect(flag).toBe(true);
+          expect(secondFeed).not.toBe(firstFeed);
         });
     });
 });
