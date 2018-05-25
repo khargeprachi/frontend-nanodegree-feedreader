@@ -95,7 +95,8 @@ $(function() {
               var item = $(this);
               id=item.data('id');
           });
-          loadFeed(0, done);
+          console.log(id);
+          loadFeed(id, done);
           });
         /*
         This test is used to make sure that the
@@ -128,8 +129,8 @@ $(function() {
       });
       */
       var firstFeed,secondFeed;
-      beforeEach((done) => {
-        
+      /*beforeEach((done) => {
+
         loadFeed(0, function() {
         // set the value of firstFeed here.
            firstFeed=$('.feed').html();
@@ -140,6 +141,33 @@ $(function() {
           });
         });
       });
+      */
+
+      beforeEach((done) => {
+
+        var id=0;
+        $('.feed-list').on('click', 'a', function() {
+            var item = $(this);
+            id=item.data('id');
+        });
+        loadFeed(id, function() {
+        // set the value of firstFeed here.
+           firstFeed=$('.feed').html();
+           var idNew=1;
+           $('.feed-list').on('click', 'a', function() {
+               var item = $(this);
+               idNew=item.data('id');
+           });
+
+          loadFeed(idNew, function() {
+              // set the value of secondFeed here.
+               secondFeed=$('.feed').html();
+               done(); 
+          });
+
+        });
+      });
+
         /*
           This test ensures when a new feed is loaded
           by the loadFeed function that the content actually changes.
