@@ -10,17 +10,11 @@
  */
 $(function() {
     "use strict";
-    /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
-    */
+
     describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
-         * empty. Experiment with this before you get started on
-         * the rest of this project. What happens when you change
-         * allFeeds in app.js to be an empty array and refresh the
-         * page?
+         * empty.
          */
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
@@ -72,8 +66,8 @@ $(function() {
         on the second click, it should be hidden.
         */
         it('Menu element',function () {
-          var body=$('body');
-          var menuIcon=$('.menu-icon-link');
+            var body=$('body');
+            var menuIcon=$('.menu-icon-link');
             menuIcon.trigger('click')
             expect(body.hasClass('menu-hidden')).toBe(false);
             menuIcon.trigger('click')
@@ -91,7 +85,7 @@ $(function() {
       */
         beforeEach(function(done) {
             loadFeed(0, done);
-          });
+        });
         /*
         This test is used to make sure that the
         length of the loaded feed (.entry) should atleast be 1.
