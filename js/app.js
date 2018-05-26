@@ -14,12 +14,13 @@ var allFeeds = [
         url: 'http://blog.udacity.com/feed'
     }, {
         name: 'CSS Tricks',
-        //url: 'http://feeds.feedburner.com/CssTricks'
-        url: 'http://blog.udacity.com/feed'
+        url: 'http://feeds.feedburner.com/CssTricks'
 
     }, {
         name: 'HTML5 Rocks',
         url: 'http://feeds.feedburner.com/html5rocks'
+
+
     }, {
         name: 'Linear Digressions',
         url: 'http://feeds.feedburner.com/udacity-linear-digressions'
@@ -34,7 +35,6 @@ var allFeeds = [
 function init() {
     // Load the first feed we've defined (index of 0).
     loadFeed(0);
-    before=document.querySelectorAll('.feed .entry');
 }
 
 /* This function performs everything necessary to load a
@@ -73,7 +73,7 @@ function init() {
                   * the resulting HTML to the list of entries on the page.
                   */
                  entries.forEach(function(entry) {
-                     container.append(entryTemplate(entry));
+                container.append(entryTemplate(entry));
                  });
 
                  if (cb) {
@@ -126,7 +126,6 @@ $(function() {
     feedList.on('click', 'a', function() {
         var item = $(this);
         $('body').addClass('menu-hidden');
-        before=document.querySelectorAll('.feed .entry');
         loadFeed(item.data('id'));
         return false;
     });
